@@ -1,0 +1,33 @@
+
+% You and your brother are exploring the wonderful world of Paradoxica. Fantastically paradoxical creatures fly around you.
+% Suddenly, a troll catches all the creatures in an enormous net. You bravely step forward and demand it let them go, when the troll grabs your brother and puts him in a cage. 
+% Then he makes you an offer: if you say something false, then he'll release your brother, if you say something true, he'll release the creatures. The troll hates paradoxes, so don't try to cheat and say something paradoxical.
+% What true/false statement can you say to force the troll to free your brother and the paradoxical creatures?
+
+% We know:
+% 1. If you say a true statement, the troll will release the creatures.
+% 2. If you say a false statement, the troll will release your brother.
+% 3. Saying something that is neither true nor false won't work because the troll hates paradoxes.
+
+formulas(assumptions).
+
+ % define "true" and "false" statement
+ true(x) -> -false(x).
+ false(x) -> -true(x).
+ 
+ %if the troll considers releasing person x to be true, he must release them
+ %if the troll considers releasing person x to be false, he must not release them
+ %in order to not create a paradox
+ true(x) -> release(x).
+ false(x) -> -release(x).
+
+ true(x) -> release(Creatures).
+ false(x) -> release(Brother).
+
+ true(Brother). % the troll hates paradoxes, so he must consider releasing your brother to be true
+
+end_of_list.
+
+formulas(goals).
+ release(Creatures) & release(Brother).
+end_of_list.
