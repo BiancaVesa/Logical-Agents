@@ -1,0 +1,81 @@
+
+% As a wildfire rages through the grass lands 3 lions and 3 wildebeest flee for their lives.
+% To escape the inferno, they must cross over the left bank of a river. 
+% Fortunately, there happens to be a raft nearby, that can carry up to two animals at a time and needs at least one animal on board to guide it across the river.
+% But if the lions ever outnumber the wildebeest on either side of the river, the lions will kill the wildebeest.
+% What is the fastes way for all 6 animals to get across, without the lions killing the wildebeest?
+
+formulas(assumptions).
+
+ %right(x, y) means animal x is at the right side of the river, at moment y
+ %left(x, y) means animal x is at the left side of the river, at moment y
+ right(W1, 0).
+ right(W2, 0).
+ right(W3, 0).
+ right(L1, 0).
+ right(L2, 0).
+ right(L3, 0).
+ 
+ % one wildebeest and two lions on the same bank
+ right(W1, x) & right(L1, x) & right(L2, x) & left(W2, x) & left(W3, x) & left(L3, x) -> eaten.
+ right(W1, x) & right(L1, x) & right(L3, x) & left(W2, x) & left(W3, x) & left(L2, x) -> eaten.
+ right(W1, x) & right(L2, x) & right(L3, x) & left(W2, x) & left(W3, x) & left(L1, x) -> eaten.
+ left(W1, x) & left(L1, x) & left(L2, x) & right(W2, x) & right(W3, x) & right(L3, x) -> eaten.
+ left(W1, x) & left(L1, x) & left(L3, x) & right(W2, x) & right(W3, x) & right(L2, x) -> eaten.
+ left(W1, x) & left(L2, x) & left(L3, x) & right(W2, x) & right(W3, x) & right(L1, x) -> eaten.
+ 
+ right(W2, x) & right(L1, x) & right(L2, x) & left(W1, x) & left(W3, x) & left(L3, x) -> eaten.
+ right(W2, x) & right(L1, x) & right(L3, x) & left(W1, x) & left(W3, x) & left(L2, x) -> eaten.
+ right(W2, x) & right(L2, x) & right(L3, x) & left(W1, x) & left(W3, x) & left(L1, x) -> eaten.
+ left(W2, x) & left(L1, x) & left(L2, x) & right(W1, x) & right(W3, x) & right(L3, x) -> eaten.
+ left(W2, x) & left(L1, x) & left(L3, x) & right(W1, x) & right(W3, x) & right(L2, x) -> eaten.
+ left(W2, x) & left(L2, x) & left(L3, x) & right(W1, x) & right(W3, x) & right(L1, x) -> eaten.
+
+ right(W3, x) & right(L1, x) & right(L2, x) & left(W1, x) & left(W2, x) & left(L3, x) -> eaten.
+ right(W3, x) & right(L1, x) & right(L3, x) & left(W1, x) & left(W2, x) & left(L2, x) -> eaten.
+ right(W3, x) & right(L2, x) & right(L3, x) & left(W1, x) & left(W2, x) & left(L1, x) -> eaten.
+ left(W3, x) & left(L1, x) & left(L2, x) & right(W1, x) & right(W2, x) & right(L3, x) -> eaten.
+ left(W3, x) & left(L1, x) & left(L3, x) & right(W1, x) & right(W2, x) & right(L2, x) -> eaten.
+ left(W3, x) & left(L2, x) & left(L3, x) & right(W1, x) & right(W2, x) & right(L1, x) -> eaten.
+
+ % one wildebeest and three lions on the same bank
+ right(W1, x) & right(L1, x) & right(L2, x) & right(L3, x) & left(W2, x) & left(W3, x) -> eaten.
+ left(W1, x) & left(L1, x) & left(L2, x) & left(L3, x) & right(W2, x) & right(W3, x) -> eaten.
+
+ right(W2, x) & right(L1, x) & right(L2, x) & right(L3, x) & left(W1, x) & left(W3, x) -> eaten.
+ left(W2, x) & left(L1, x) & left(L2, x) & left(L3, x) & right(W1, x) & right(W3, x) -> eaten.
+
+ right(W3, x) & right(L1, x) & right(L2, x) & right(L3, x) & left(W1, x) & left(W2, x) -> eaten.
+ left(W3, x) & left(L1, x) & left(L2, x) & left(L3, x) & right(W1, x) & right(W2, x) -> eaten.
+
+ % two wildebeest and three lions on the same bank
+ right(W1, x) & right(W2, x) & right(L1, x) & right(L2, x) & right(L3, x) & left(W3, x) -> eaten.
+ right(W1, x) & right(W3, x) & right(L1, x) & right(L2, x) & right(L3, x) & left(W2, x) -> eaten.
+ right(W2, x) & right(W3, x) & right(L1, x) & right(L2, x) & right(L3, x) & left(W1, x)-> eaten.
+
+ left(W1, x) & left(W2, x) & left(L1, x) & left(L2, x) & left(L3, x) & right(W3, x) -> eaten.
+ left(W1, x) & left(W3, x) & left(L1, x) & left(L2, x) & left(L3, x) & right(W2, x) -> eaten.
+ left(W2, x) & left(W3, x) & left(L1, x) & left(L2, x) & left(L3, x) & right(W1, x) -> eaten.
+
+
+ left(x, y) <-> -right(x, y).
+ right(x, y) <-> -left(x, y).
+ 
+ left(L1, 1) & left(L2, 1) & right(L3, 1) & right(W1, 1) & right(W2, 1) & right(W3, 1).			% L L 			<- 	W W W L
+ left(L2, 2) & right(L1, 2) & right(L3, 2) & right(W1, 2) & right(W2, 2) & right(W3, 2).		% L 			->	W W W L L
+ left(L1, 3) & left(L2, 3) & left(L3, 3) & right(W1, 3) & right(W2, 3) & right(W3, 3).			% L L L 		<- 	W W W
+ left(L2, 4) & left(L3, 4) & right(L1, 4) & right(W1, 4) & right(W2, 4) & right(W3, 4).			% L L 			->  W W W L
+ left(L2, 5) & left(L3, 5) & left(W1, 5) & left(W2, 5) & right(L1, 5) & right(W3, 5).			% L L W W 		<-  W L
+ left(L3, 6) & left(W2, 6) & right (L2, 6) & right(W1, 6) & right(L1, 6) & right(W3, 6).		% L W 			->  W W L L
+ left(L3, 7) & left(W1, 7) & left(W2, 7) & left(W3, 7) & right(L1, 7) & right(L2, 7).			% L W W W 		<-  L L
+ left(W1, 8) & left(W2, 8) & left(W3, 8) & right(L3, 8) & right(L1, 8) & right(L2, 8).			% W W W 		->  L L L
+ left(W1, 9) & left(W2, 9) & left(W3, 9) & left(L1, 9) & left(L2, 9) & right(L3, 9).			% L L W W W 	<-  L
+ left(W1, 10) & left(W2, 10) & left(W3, 10) & left(L2, 10) & right(L1, 10) & right(L3, 10).		% L W W W 		->  L L
+ left(W1, 11) & left(W2, 11) & left(W3, 11) & left(L1, 11) & left(L2, 11) & left(L3, 11).		% L L L W W W   <-
+
+
+end_of_list.
+ 
+formulas(goals).
+ eaten.
+end_of_list.
