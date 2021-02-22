@@ -1,0 +1,39 @@
+
+% Four thieves broke into the Element Temple to steal the four magical crystals, but when the alarm went off, they panicked and each of them swallowed a crystal. 
+% After being caught, with your secret skills of deduction you're trying to figure out who swallowed which crystal.
+% The Water and Earth crystals forces the person to tell the truth, while the Air and Fire crystal forced the person to lie.
+% 1. Sumi says Rikku ate the Water crystal.
+% 2. Rikku says that Bella ate the Fire crystal.
+% 3. Bella says that Jonah ate the Air crystal.
+% 4. Jonah says that Sumi did not eat the Earth crystal.
+
+assign(domain_size, 4).
+
+list(distinct). 
+   [Sumi,Rikku,Bella,Jonah].
+   [Water,Earth,Air,Fire].
+end_of_list.
+
+formulas(assumptions).
+
+    -(Sumi = Water).
+    Sumi = Earth -> Rikku = Water.
+    Sumi = Air -> -(Rikku = Water).
+    Sumi = Fire -> -(Rikku = Water).
+
+    Rikku = Water -> Bella = Fire.
+    Rikku = Earth -> Bella = Fire.
+    Rikku = Air -> -(Bella = Fire).
+    Rikku = Fire -> -(Bella = Fire).
+
+    Bella = Water -> Jonah = Air.
+    Bella = Earth -> Jonah = Air.
+    Bella = Air -> -(Jonah = Air).
+    Bella = Fire -> -(Jonah = Air).
+
+    Jonah = Water -> -(Sumi = Earth).
+    Jonah = Earth -> -(Sumi = Earth).
+    Jonah = Air -> Sumi = Earth.
+    Jonah = Fire -> Sumi = Earth.
+
+end_of_list.
