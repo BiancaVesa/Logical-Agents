@@ -1,0 +1,58 @@
+
+% Maurice had several customers in his tattoo parlor today, each of which requested a simple tattoo of their astrological sign. 
+% Match each customer to their zodiac sign and tattoo color, and determine the price for each.
+
+% 1. The Sagittarius paid 5 dollars less than the Cancer.
+% 2. Of the customer who paid $55 and Isaac, one was the Taurus and the other got the orange tattoo.
+% 3. The Aquarius was either the person who got the red tattoo or the customer who paid $45.
+% 4. Mario paid 5 dollars less than Sheila.
+% 5. The Pisces paid 25 dollars more than the person who got the green tattoo.
+% 6. Neil was either the customer who paid $55 or the customer who got the violet tattoo.
+% 7. Of the person who got the green tattoo and the customer who got the black tattoo, one was the Sagittarius and the other was Isaac.
+% 8. The person who paid $65 was either the customer who got the violet tattoo or the customer who got the blue tattoo.
+% 9. The Taurus paid 5 dollars less than Mario.
+% 10. Zachary paid 25 dollars less than the customer who got the blue tattoo.
+% 11. The Virgo paid 10 dollars less than the customer who got the pink tattoo.
+% 12. Kendra didn't get the violet tattoo.
+% 13. The customer who got the green tattoo paid 5 dollars more than Zachary.
+% 14. Neil didn't pay $65.
+
+assign(domain_size, 7).
+set(arithmetic).
+
+list(distinct).
+
+	[Thirtyfive, Fourty, Fourtyfive, Fifty, Fiftyfive, Sixty, Sixtyfive].
+	[Isaac, Janie, Kendra, Mario, Neil, Sheila, Zachary].
+	[Black, Blue, Green, Pink, Orange, Red, Violet].
+	[Aquarius, Cancer, Pisces, Libra, Sagittarius, Taurus, Virgo].
+
+end_of_list.
+
+formulas(assumption).
+
+	Thirtyfive = 0.
+	Fourty = 1.
+	Fourtyfive = 2.
+	Fifty = 3.
+	Fiftyfive = 4.
+	Sixty = 5.
+	Sixtyfive = 6.
+
+	Cancer = Sagittarius + 1.
+	( (Taurus = 4 ) & (Isaac = Orange) ) | ( (Orange = 4) & (Isaac = Taurus) ).
+	(Aquarius = Red) | (Aquarius = 2).
+	Sheila = Mario + 1.
+	Pisces = Green + 5.
+	(Neil = 4) | (Neil = Violet).
+	( (Green = Sagittarius ) & (Black = Isaac ) ) | ( (Green = Isaac ) & (Black = Sagittarius ) ).
+	(Violet = 6) | (Blue = 6).
+	Mario = Taurus + 1.
+	Blue = Zachary + 5.
+	Pink = Virgo + 2.
+	Kendra != Violet.
+	Green = Zachary + 1.
+	Neil != 6.
+
+end_of_list.
+
